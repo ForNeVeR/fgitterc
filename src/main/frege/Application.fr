@@ -1,0 +1,4 @@
+module me.fornever.fgitterc.Application where
+
+main :: [String] -> IO ()
+main _ = return ()

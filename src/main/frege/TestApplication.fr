@@ -1,0 +1,15 @@
+module me.fornever.fgitterc.TestApplication where
+
+import frege.test.QuickCheck
+
+checkResult :: Result -> Int
+checkResult Success {} = 0
+checkResult _ = 1
+
+testProperty :: Property
+testProperty = property $ 2 == 2
+
+main :: [String] -> IO Int
+main _ = do
+    result <- quickCheckResult testProperty
+    return $ checkResult result
