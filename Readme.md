@@ -11,4 +11,4 @@ Running
 
 Testing
 -------
-Check [.travis.yml] for test instructions.
+Check [.travis.yml](.travis.yml) for test instructions.
