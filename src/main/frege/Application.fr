@@ -3,16 +3,20 @@ module me.fornever.fgitterc.Application where
 import me.fornever.fgitterc.IrcListener
 import me.fornever.fgitterc.PircBotX
 
-configure :: ST s Configuration
-configure = do
+configure :: ListenerAdapter -> ST s Configuration
+configure listener = do
   builder <- ConfigurationBuilder.new ()
+  builder.setName "fgitterc"
+  builder.setServerHostname "irc.freenode.net"
+  builder.addAutoJoinChannel "#codingteam"
+  builder.addListener listener
+
   builder.buildConfiguration
 
 main :: [String] -> IO ()
 main _ = do
   let listener = createListener $ \event -> putStrLn $ show event
-  let configuration = ST.run configure
-  let bot = PircBotX.new configuration
+  let configuration = configure listener
+  let bot = PircBotX.new $ ST.run configuration
   result <- bot.startBot
   return () -- TODO: Error logging and reconnecting
-  
