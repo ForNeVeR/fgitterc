@@ -3,12 +3,16 @@ module me.fornever.fgitterc.Application where
 import me.fornever.fgitterc.IrcListener
 import me.fornever.fgitterc.PircBotX
 
+configure :: ST s Configuration
+configure = do
+  builder <- ConfigurationBuilder.new ()
+  builder.buildConfiguration
+
 main :: [String] -> IO ()
 main _ = do
   let listener = createListener $ \event -> putStrLn $ show event
-  let configuration = ST.run $ ConfigurationBuilder.new >> ConfigurationBuilder.buildConfiguration
+  let configuration = ST.run configure
   let bot = PircBotX.new configuration
-  result <- bot.startBot ()
-  case result of
-    (Left error) -> putStrLn $ show error
-    _ -> return ()
+  result <- bot.startBot
+  return () -- TODO: Error logging and reconnecting
+  

@@ -10,17 +10,17 @@ data IrcException = pure native org.pircbotx.exception.IrcException
 derive Exceptional IrcException
 
 data ListenerAdapter = pure native org.pircbotx.hooks.ListenerAdapter
-data Configuration b = pure native org.pircbotx.Configuration
+data Configuration = pure native org.pircbotx.Configuration
 
 data PircBotX = pure native org.pircbotx.PircBotX where
-  pure native new :: Configuration PircBotX -> PircBotX
+  pure native new :: Configuration -> PircBotX
   native startBot :: PircBotX -> IO ()
     throws IOException, IrcException
 
-data ConfigurationBuilder b = native org.pircbotx.Configuration.Builder where
-  native new :: () -> STMutable s (ConfigurationBuilder b)
-  native setName :: Mutable s (ConfigurationBuilder b) -> String -> STMutable s (ConfigurationBuilder b)
-  native setServerHostname :: Mutable s (ConfigurationBuilder b) -> String -> STMutable s (ConfigurationBuilder b)
-  native addAutoJoinChannel :: Mutable s (ConfigurationBuilder b) -> String -> STMutable s (ConfigurationBuilder b)
-  native addListener :: Mutable s (ConfigurationBuilder b) -> ListenerAdapter -> STMutable s (ConfigurationBuilder b)
-  native buildConfiguration :: Mutable s (ConfigurationBuilder b) -> ST s (Configuration b)
+data ConfigurationBuilder = native org.pircbotx.Configuration.Builder where
+  native new :: () -> STMutable s ConfigurationBuilder
+  native setName :: Mutable s ConfigurationBuilder -> String -> STMutable s ConfigurationBuilder
+  native setServerHostname :: Mutable s ConfigurationBuilder -> String -> STMutable s ConfigurationBuilder
+  native addAutoJoinChannel :: Mutable s ConfigurationBuilder -> String -> STMutable s ConfigurationBuilder
+  native addListener :: Mutable s ConfigurationBuilder -> ListenerAdapter -> STMutable s ConfigurationBuilder
+  native buildConfiguration :: Mutable s ConfigurationBuilder -> ST s Configuration
