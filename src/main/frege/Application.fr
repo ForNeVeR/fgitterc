@@ -15,8 +15,8 @@ configure listener = do
 
 main :: [String] -> IO ()
 main _ = do
-  let listener = createListener $ \event -> putStrLn $ show event
-  let configuration = configure listener
-  let bot = PircBotX.new $ ST.run configuration
+  let listener = createListener $ \event -> putStrLn "message received"
+  configuration <- configure listener
+  let bot = PircBotX.new configuration
   result <- bot.startBot
   return () -- TODO: Error logging and reconnecting

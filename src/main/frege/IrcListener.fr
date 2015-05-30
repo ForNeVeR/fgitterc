@@ -10,7 +10,8 @@ native module
 
   @Override
   public void onGenericMessage(org.pircbotx.hooks.types.GenericMessageEvent event) {
-    onMessage.apply(event);
+    frege.runtime.Lambda action = frege.runtime.Delayed.<frege.runtime.Lambda>forced(onMessage.apply(event).result());
+    frege.runtime.Delayed.forced(PreludeBase.TST.performUnsafe(action));
   }
 
   public IrcListener(frege.runtime.Lambda onMessage) {
