@@ -1,0 +1,19 @@
+module me.fornever.fgitterc.PircBotX where
+
+data GenericMessageEvent = pure native org.pircbotx.hooks.types.GenericMessageEvent where
+  pure native toString :: GenericMessageEvent -> String
+
+instance Show GenericMessageEvent where
+  show event = event.toString
+
+data ListenerAdapter = pure native org.pircbotx.hooks.ListenerAdapter
+data Configuration b = pure native org.pircbotx.Configuration
+
+data PircBotX = pure native org.pircbotx.PircBotX
+data ConfigurationBuilder b = native org.pircbotx.Configuration.Builder where
+  native new :: () -> STMutable s (ConfigurationBuilder b)
+  native setName :: Mutable s (ConfigurationBuilder b) -> String -> STMutable s (ConfigurationBuilder b)
+  native setServerHostname :: Mutable s (ConfigurationBuilder b) -> String -> STMutable s (ConfigurationBuilder b)
+  native addAutoJoinChannel :: Mutable s (ConfigurationBuilder b) -> String -> STMutable s (ConfigurationBuilder b)
+  native addListener :: Mutable s (ConfigurationBuilder b) -> ListenerAdapter -> STMutable s (ConfigurationBuilder b)
+  native buildConfiguration :: Mutable s (ConfigurationBuilder b) -> ST s (Configuration b)
