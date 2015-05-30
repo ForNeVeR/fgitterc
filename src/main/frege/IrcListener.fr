@@ -1,0 +1,26 @@
+module me.fornever.fgitterc.IrcListener where
+
+data ListenerAdapter = pure native org.pircbotx.hooks.ListenerAdapter
+data GenericMessageEvent = pure native org.pircbotx.hooks.types.GenericMessageEvent
+
+native module
+  type ListenerAdapter
+  where {
+
+  final private frege.runtime.Lambda onMessage;
+
+  @Override
+  public void onGenericMessage(org.pircbotx.hooks.types.GenericMessageEvent event) {
+    onMessage.apply(event);
+  }
+
+  public IrcListener(frege.runtime.Lambda onMessage) {
+    this.onMessage = onMessage;
+  }
+
+  public static org.pircbotx.hooks.ListenerAdapter create(frege.runtime.Lambda onMessage) {
+    return new IrcListener(onMessage);
+  }
+}
+
+pure native listener IrcListener.create :: (GenericMessageEvent -> IO ()) -> ListenerAdapter

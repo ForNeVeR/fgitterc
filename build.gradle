@@ -21,7 +21,8 @@ repositories {
 }
 
 dependencies {
-  compile group: 'com.theoryinpractise.frege', name: 'frege', version: '3.22.367-g2737683'
+  compile group: 'org.frege-lang', name: 'frege', version: '3.22.524-gcc99d7e'
+  compile group: 'org.pircbotx', name: 'pircbotx', version: '2.0.1'
 }
 
 mainClassName = System.getProperty("mainClass") ?: 'me.fornever.fgitterc.Application'
