@@ -23,6 +23,7 @@ repositories {
 dependencies {
   compile group: 'org.frege-lang', name: 'frege', version: '3.22.524-gcc99d7e'
   compile group: 'org.pircbotx', name: 'pircbotx', version: '2.0.1'
+  compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.9'
 }
 
 mainClassName = System.getProperty("mainClass") ?: 'me.fornever.fgitterc.Application'
